@@ -122,7 +122,7 @@ xor dx, dx                       ; Border index
 
     mov si, 176
     xor di, di
-    mov ax, 128
+    mov ax, 320
     jmp .draw
 
 .bottom_right_border_init:
@@ -179,12 +179,9 @@ xor dx, dx                       ; Border index
     je .bottom_left_border_init
 
     cmp dx, 2
-    je .bottom_right_border_init
-
-    cmp dx, 3
     je .right_border_init
    
-    cmp dx, 4
+    cmp dx, 3
     je .left_border_init
 
     jmp .done
@@ -244,7 +241,7 @@ draw_rock_tile:
                            ; It is a 1, draw
     mov ah, 0Ch
     xor bh, bh             ; Page number 0
-    mov al, 06h            ; Color brown
+    mov al, 0Fh            ; Color white
     int 10h
 
 .pass:                     ; Increment the counters
@@ -296,9 +293,9 @@ print_text:
 bootdrv: db 0              
 
 ; Data
-msg1:    db "IT'S DANGEROUS TO GO"
-msg2:    db "ALONE!   TAKE ME."
-rock:    dw 0xC3B7, 0xDFCF, 0xFFCF, 0x7FCF, 0x7FE6, 0xFFEF, 0xBFEF, 0xBFEF, 0x7FE7, 0xFFEF, 0x7DE7, 0x3C9B, 0x7DFD, 0xBC7D, 0xFCFF, 0x2CFC ; 32 bytes
+msg1:    db "FROM QEMU TO YOU    "
+msg2:    db "HAPPY HOLIDAYS!!!"
+rock:    dw 0x0000, 0x8000, 0x4000, 0x0000, 0xa000, 0x0000, 0x8100, 0x0000, 0x8000, 0x0000, 0x0000, 0x4108, 0x2000, 0x0000, 0x0000, 0x1000 ; 32 bytes
 
 ; The first sector MUST be 512 bytes and the last 2 bytes have to be 0xAA55 for it
 ; to be bootable
@@ -428,6 +425,7 @@ stage2:
 ;
 draw_sprite:
 
+    ret 2
     push bp                 ; Save old base pointer
     mov bp, sp              ; Use the current stack pointer as new base pointer
     pusha

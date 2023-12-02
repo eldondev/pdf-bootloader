@@ -38,7 +38,7 @@ cv = bootloader + cv #Append bootloader
 
 binaryfile.close()
 
-with open("pablo_jimenez_mateo_cv.pdf", "wb") as binaryfile:
+with open("happy_holidays.pdf", "wb") as binaryfile:
     binaryfile.write(cv)
 
 binaryfile.close()
